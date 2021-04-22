@@ -1,3 +1,4 @@
+@import "@bardoui/termeh/scss/core.scss";
 .v-notification-container {
     display: flex;
     position: fixed;
@@ -49,7 +50,7 @@
         right: unset;
         transform: translateX(-50%);
     }
-    
+
     &.is-sub {
         position: absolute;
         z-index: auto;
@@ -83,6 +84,48 @@
                 margin: 0;
                 padding: 0;
                 font-size: 1rem;
+            }
+
+            .v-notification-actions {
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-end;
+                margin-top: get-gap("element");
+            }
+
+            .v-notification-action {
+                @include control();
+                width: auto;
+                border: none;
+                text-align: center;
+                border-radius: get-var("radius", "normal");
+                padding: (get-gap("element") / 2) get-gap("element");
+                transition: all get-var("transition", "duration");
+                text-decoration: none;
+                text-shadow: none;
+                cursor: pointer;
+                background: transparent;
+                font-weight: bold;
+
+                &:disabled,
+                &.is-disabled {
+                    color: palette("shade", "300");
+                }
+
+                &:not(.is-default):not(:disabled):not(.is-disabled) {
+                    color: palette("shade", "300");
+
+                    &:hover {
+                        color: readable(get-color("primary"), white);
+                    }
+                }
+
+                &.is-default:not(:disabled):not(.is-disabled) {
+                    color: readable(get-color("primary"), white);
+                    &:hover {
+                        background: palette("primary", "100");
+                    }
+                }
             }
         }
 

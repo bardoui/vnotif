@@ -10,23 +10,19 @@
             <div v-if="loading">
                 Loading...
             </div>
-            <p>{{ progress }} <strong>%</strong></p>
-            <div class="grid">
-                <div class="column"></div>
-                <div class="column is-fit">
-                    <span
-                        class="v-notification-action"
-                        @click.stop="action('no', 'data')"
-                        >{{ noText || "no" }}</span
-                    >
-                    <button
-                        class="v-notification-action is-default"
-                        :class="{ 'is-disabled': loading }"
-                        @click.stop="action('yes')"
-                    >
-                        {{ yesText || "yes" }}
-                    </button>
-                </div>
+            <div class="v-notification-actions">
+                <span
+                    class="v-notification-action"
+                    @click.stop="action('no', 'data')"
+                    >{{ noText || "no" }}</span
+                >
+                <button
+                    class="v-notification-action is-default"
+                    :class="{ 'is-disabled': loading }"
+                    @click.stop="action('yes')"
+                >
+                    {{ yesText || "yes" }}
+                </button>
             </div>
         </div>
         <div

@@ -113,6 +113,13 @@
                 font-size: 1rem;
             }
 
+            .v-notification-actions {
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-end;
+                margin-top: get-gap("element");
+            }
+
             .v-notification-action {
                 @include control();
                 width: auto;

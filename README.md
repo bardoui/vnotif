@@ -162,22 +162,19 @@ To create custom notification you need define a normal vue component with notifi
         Loading...
       </div>
       <p>{{ progress }} <strong>%</strong></p>
-      <div class="grid">
-        <div class="column"></div>
-        <div class="column is-fit">
-          <span
-            class="v-notification-action"
-            @click.stop="action('no', 'data')"
-            >{{ noText || "no" }}</span
-          >
-          <button
-            class="v-notification-action is-default"
-            :class="{ 'is-disabled': loading }"
-            @click.stop="action('yes')"
-          >
-            {{ yesText || "yes" }}
-          </button>
-        </div>
+      <div class="v-notification-actions">
+        <span
+          class="v-notification-action"
+          @click.stop="action('no', 'data')"
+          >{{ noText || "no" }}</span
+        >
+        <button
+          class="v-notification-action is-default"
+          :class="{ 'is-disabled': loading }"
+          @click.stop="action('yes')"
+        >
+          {{ yesText || "yes" }}
+        </button>
       </div>
     </div>
     <div
@@ -283,17 +280,25 @@ for using default styles you must import `style.css` in your app.
 
 ### Container Styles
 
-| Class            | Description                                                                                           |
-| :--------------- | :---------------------------------------------------------------------------------------------------- |
+| Class            | Description                                                                                         |
+| :--------------- | :-------------------------------------------------------------------------------------------------- |
 | is-sub           | add this class to container when use container inside some part of ui (for no top-level containers) |
-| is-left-top      | position container in top left                                                                        |
-| is-right-top     | position container in top right                                                                       |
-| is-center-top    | position container in top center                                                                      |
-| is-left-bottom   | position container in bottom left                                                                     |
-| is-right-bottom  | position container in bottom right                                                                    |
-| is-center-bottom | position container in bottom center                                                                   |
+| is-left-top      | position container in top left                                                                      |
+| is-right-top     | position container in top right                                                                     |
+| is-center-top    | position container in top center                                                                    |
+| is-left-bottom   | position container in bottom left                                                                   |
+| is-right-bottom  | position container in bottom right                                                                  |
+| is-center-bottom | position container in bottom center                                                                 |
 
 **Note:** Parent node of sub containers must have `position: relative;` style!
+
+### Action Styles
+
+| Class                  | Description                           |
+| :--------------------- | :------------------------------------ |
+| v-notification-actions | action container class                |
+| v-notification-action  | action button                         |
+| is-default             | style action as default action button |
 
 ### Customize Styling
 
@@ -313,7 +318,7 @@ For overriding default style you must use `set-var('v-notif', $VAR)`. Following 
 | `container-padding` | container padding                                                      | `1rem`                   |
 | `container-z-index` | container z-index (by default `.layout` class of termeh has 0 z-index) | `2`                      |
 | `background`        | background                                                             | `get-color('container')` |
-| `border-width`      | left or right (based on direction) border width of notification         | `3px`                    |
+| `border-width`      | left or right (based on direction) border width of notification        | `3px`                    |
 | `padding`           | padding                                                                | `1rem`                   |
 | `shadow`            | box-shadow                                                             | a simple shadow          |
 | `progress-size`     | progress bar size                                                      | `1px`                    |
@@ -330,5 +335,3 @@ you can override box-shadow of colored notification by defining `shadow-{iterabl
 );
 @import "@bardoui/vnotif/dist/style.scss";
 ```
-
-**Note:** When using **Termeh** you can add `v-notification-action` class to action buttons. also you can add `is-default` class to your action and style action as default action. actions also support disable state with `disable` attribute or `is-disabled` class.

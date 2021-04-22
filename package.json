@@ -1,6 +1,6 @@
 {
     "name": "@bardoui/vnotif",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "private": false,
     "description": "Notification for Vue 3",
     "license": "ISC",

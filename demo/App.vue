@@ -69,7 +69,6 @@ export default defineComponent({
 @import "@bardoui/termeh/scss/reset.scss";
 @import "@bardoui/termeh/scss/component/layout.scss";
 @import "@bardoui/termeh/scss/component/button.scss";
-@import "@bardoui/termeh/scss/component/grid.scss";
 @import "../src/termeh.scss";
 #app {
     display: block;
