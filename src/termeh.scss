@@ -163,6 +163,14 @@
             transition: all 100ms linear;
         }
 
+        &.is-loading {
+            @include overlay($color: rgba($bg, 0.5));
+            @include loader(
+                $size: 1.5rem,
+                $color: readable(get-color("primary"), $bg)
+            );
+        }
+
         @each $name, $color in iterate-colors() {
             &.is-#{$name} {
                 border-color: readable($color, $bg);
@@ -198,6 +206,13 @@
 
                 .v-notification-progress {
                     background-color: readable($color, $bg);
+                }
+
+                &.is-loading {
+                    @include loader(
+                        $size: 1.5rem,
+                        $color: readable($color, $bg)
+                    );
                 }
             }
         }

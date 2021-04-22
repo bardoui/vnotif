@@ -135,5 +135,13 @@
             background-color: #495057;
             transition: all 100ms linear;
         }
+
+        &.is-loading {
+            @include overlay($color: rgba(white, 0.5));
+            @include loader(
+                $size: 1.5rem,
+                $color: readable(get-color("primary"), white)
+            );
+        }
     }
 }

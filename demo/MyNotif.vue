@@ -4,12 +4,10 @@
         @mouseenter="pause"
         @mouseleave="resume"
         ref="container"
+        :class="{ 'is-loading': loading }"
     >
         <div class="v-notification-content">
             <p>{{ message }}</p>
-            <div v-if="loading">
-                Loading...
-            </div>
             <div class="v-notification-actions">
                 <span
                     class="v-notification-action"

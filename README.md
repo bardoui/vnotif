@@ -292,6 +292,8 @@ for using default styles you must import `style.css` in your app.
 
 **Note:** Parent node of sub containers must have `position: relative;` style!
 
+**Note:** You can use `is-loading` class with your notification to add loader ui.
+
 ### Action Styles
 
 | Class                  | Description                           |
