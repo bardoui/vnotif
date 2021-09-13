@@ -283,6 +283,7 @@ for using default styles you must import `style.css` in your app.
 | Class            | Description                                                                                         |
 | :--------------- | :-------------------------------------------------------------------------------------------------- |
 | is-sub           | add this class to container when use container inside some part of ui (for no top-level containers) |
+| is-loading       | add loading ui to popup                                                                             |
 | is-left-top      | position container in top left                                                                      |
 | is-right-top     | position container in top right                                                                     |
 | is-center-top    | position container in top center                                                                    |
