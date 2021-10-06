@@ -265,56 +265,93 @@ export default defineComponent({
 
 ## Styling
 
-for using default styles you must import `style.css` in your app.
+for using default styles you can use one of static (CSS) or termeh (SCSS) predefined files.
 
-```vue
-<style>
+**Note**: advanced feature (change default vars, padding classes and color classes) only available in termeh version of style.
+
+```SCSS
+// Static
 @import "@bardoui/vnotif/dist/style.css";
-</style>
-```
-
-Default style structure:
-
-- **is-left-top** _(class)_: position container to left top.
-- **is-right-top** _(class)_: position container to right top.
-- **is-center-top** _(class)_: position container to center top.
-- **is-left-bottom** _(class)_: position container to left bottom.
-- **is-right-bottom** _(class)_: position container to right bottom.
-- **is-center-bottom** _(class)_: position container to center bottom.
-- **is-sub** _(class)_: add this class to main container if use container inside part of ui.
-- **v-notification** _(class)_: styling notification component.
-  - **content** _(class)_: style notification content container.
-    - **header** _(class)_: style notification header.
-    - **actions** _(class)_: style notification actions container.
-      - **action** _(class)_: style notification action.
-        - **is-disabled** _(class)_: disable action.
-        - **is-default** _(class)_: make action default.
-  - **progress** _(class)_: style notification progress.
-  - **is-decorated** _(class)_: decorate notification with border.
-  - **is-loading** _(class)_: add loading ui to notification.
-
-### Customize Styling
-
-Popper plugin use [Termeh](https://www.npmjs.com/package/@bardoui/termeh) for advanced styling. If you use **termeh** in your project you can import `@bardoui/vnotif/dist/style.scss` in your _termeh_ root file and use custom styling.
-
-```scss
-// Termeh root file
-// ... Other styles
+// Termeh
 @import "@bardoui/vnotif/dist/style.scss";
 ```
 
-By using termeh style you can use `is-{gap}-gapped` and `is-{color}` to change notification ui padding and colorize them with registered termeh iterable gaps and colors.
+### Container Styles
 
-You can set following variable to customize notification styling.
+- **is-left-top**: position container to left top.
+- **is-right-top**: position container to right top.
+- **is-center-top**: position container to center top.
+- **is-left-bottom**: position container to left bottom.
+- **is-right-bottom**: position container to right bottom.
+- **is-center-bottom**: position container to center bottom.
+- **is-sub**: add this class to container when use container inside some part of ui (for non-fullscreen containers).
 
-| Component    | Variable       | Description                                                   | Default       |
-| :----------- | :------------- | :------------------------------------------------------------ | :------------ |
-| notification | width          | default notification width                                    | `20rem`       |
-| notification | z-index        | default notification z-index                                  | `2`           |
-| notification | border         | default notification border                                   | `none`        |
-| notification | shadow         | default notification shadow                                   | a soft shadow |
-| notification | progress       | notification progress size                                    | `1px`         |
-| notification | gaps           | list of non-iterable gaps to include in notification gaps     | `()`          |
-| notification | colors         | list of non-iterable colors to include in notification colors | `()`          |
-| notification | {color}-border | colored notification border                                   | `null`        |
-| notification | {color}-shadow | colored notification shadow                                   | `null`        |
+**Note:** Parent node of sub containers must have `position: relative;` style!
+
+### Notification Styles
+
+Notification by default can contains following parts:
+
+- **content**: contains notification content (headers, actions, etc).
+- **progress**: progress element.
+
+**Note**: this elements must placed directly as child.
+
+```html
+<div class="v-notification">
+  <div class="content">
+    <h1>{{ header }}</h1>
+    <p>{{ content }}</p>
+    <div class="actions">
+      <button class="action">Cancel</button>
+      <button class="action is-default">Approve</button>
+    </div>
+  </div>
+  <div class="progress"></div>
+</div>
+```
+
+#### Notification Classes
+
+You could style your custom component by `v-notification` class.
+
+- **is-decorated**: add decorated border to notification.
+- **is-loading**: add loading ui to notification.
+- **is-{gap}-gaped**: set notification gap (padding and spacing) to registered iterable gaps (Termeh only).
+- **is-{color}**: set notification color scheme to registered iterable colors (Termeh only).
+
+#### Content Styles
+
+Notification content by default can contains following parts:
+
+- **<h1> ... <h6>** or **header**: notification header.
+- **actions**: container for notification actions.
+
+#### Action Classes
+
+to use pre-defined actions in your custom component you should define container with `actions` class and action buttons with `action` class inside your actions container.
+
+- **action**: create a action button.
+- **is-default**: default action button.
+- **is-disabled**: disabled action button.
+
+#### Customize Styling
+
+You can override following pre-defined component variable to override default notification styling.
+
+```scss
+@include _var("notification", "width", 30rem);
+@include _var("notification", "primary-border", (1px solid _color("primary")));
+```
+
+| Variable       | Description                                                   | Default       |
+| :------------- | :------------------------------------------------------------ | :------------ |
+| width          | notification container width                                  | `20rem`       |
+| z-index        | notification container z-index                                | `2`           |
+| border         | default notification border                                   | `none`        |
+| shadow         | default notification shadow                                   | a soft shadow |
+| progress       | notification progress size                                    | `1px`         |
+| gaps           | list of non-iterable gaps to include in notification gaps     | `()`          |
+| colors         | list of non-iterable colors to include in notification colors | `()`          |
+| {color}-border | colored notification border                                   | `null`        |
+| {color}-shadow | colored notification shadow                                   | `null`        |
