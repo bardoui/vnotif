@@ -1,6 +1,6 @@
 {
     "name": "@bardoui/vnotif",
-    "version": "1.0.3",
+    "version": "1.1.0",
     "private": false,
     "description": "Notification for Vue 3",
     "license": "ISC",
@@ -33,7 +33,7 @@
         "url": "https://github.com/bardoui/vnotif"
     },
     "dependencies": {
-        "@bardoui/termeh": "^1.0.4",
+        "@bardoui/termeh": "^2.1.0",
         "animejs": "^3.2.1",
         "core-js": "^3.6.5",
         "shortid": "^2.2.16",

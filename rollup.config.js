@@ -40,7 +40,8 @@ export default {
             ]
         }),
         scss({
-            output: "./dist/style.css"
+            output: "./dist/style.css",
+            sass: require("sass")
         }),
         typescript({
             tsconfig: "./tsconfig.json"

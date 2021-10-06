@@ -156,20 +156,18 @@ To create custom notification you need define a normal vue component with notifi
     @mouseleave="resume"
     ref="container"
   >
-    <div class="v-notification-content">
+    <div class="content">
       <p>{{ message }}</p>
       <div v-if="loading">
         Loading...
       </div>
       <p>{{ progress }} <strong>%</strong></p>
-      <div class="v-notification-actions">
-        <span
-          class="v-notification-action"
-          @click.stop="action('no', 'data')"
-          >{{ noText || "no" }}</span
-        >
+      <div class="actions">
+        <span class="action" @click.stop="action('no', 'data')">{{
+          noText || "no"
+        }}</span>
         <button
-          class="v-notification-action is-default"
+          class="action is-default"
           :class="{ 'is-disabled': loading }"
           @click.stop="action('yes')"
         >
@@ -270,42 +268,27 @@ export default defineComponent({
 for using default styles you must import `style.css` in your app.
 
 ```vue
-<template>
-  <notification />
-</template>
 <style>
 @import "@bardoui/vnotif/dist/style.css";
 </style>
 ```
 
-### Container Styles
+Default style structure:
 
-| Class            | Description                                                                                         |
-| :--------------- | :-------------------------------------------------------------------------------------------------- |
-| is-sub           | add this class to container when use container inside some part of ui (for no top-level containers) |
-| is-loading       | add loading ui to popup                                                                             |
-| is-left-top      | position container in top left                                                                      |
-| is-right-top     | position container in top right                                                                     |
-| is-center-top    | position container in top center                                                                    |
-| is-left-bottom   | position container in bottom left                                                                   |
-| is-right-bottom  | position container in bottom right                                                                  |
-| is-center-bottom | position container in bottom center                                                                 |
-
-**Note:** Parent node of sub containers must have `position: relative;` style!
-
-**Note:** You can use `is-loading` class with your notification to add loader ui.
-
-### Action Styles
-
-| Class                  | Description                           |
-| :--------------------- | :------------------------------------ |
-| v-notification-actions | action container class                |
-| v-notification-action  | action button                         |
-| is-default             | style action as default action button |
+- **v-notification** _(class)_: styling notification component.
+  - **content** _(class)_: style notification content container.
+    - **header** _(class)_: style notification header.
+    - **actions** _(class)_: style notification actions container.
+      - **action** _(class)_: style notification action.
+        - **is-disabled** _(class)_: disable action.
+        - **is-default** _(class)_: make action default.
+  - **progress** _(class)_: style notification progress.
+  - **is-decorated** _(class)_: decorate notification with border.
+  - **is-loading** _(class)_: add loading ui to notification.
 
 ### Customize Styling
 
-notification plugin use [Termeh](https://www.npmjs.com/package/@bardoui/termeh) for advanced styling. if you use **termeh** in your project you can import `@bardoui/vnotif/dist/style.scss` in your _termeh_ root file and use custom styling.
+Popper plugin use [Termeh](https://www.npmjs.com/package/@bardoui/termeh) for advanced styling. If you use **termeh** in your project you can import `@bardoui/vnotif/dist/style.scss` in your _termeh_ root file and use custom styling.
 
 ```scss
 // Termeh root file
@@ -313,28 +296,18 @@ notification plugin use [Termeh](https://www.npmjs.com/package/@bardoui/termeh) 
 @import "@bardoui/vnotif/dist/style.scss";
 ```
 
-For overriding default style you must use `set-var('v-notif', $VAR)`. Following vars are used for styling notification plugin:
+By using termeh style you can use `is-{gap}-gapped` and `is-{color}` to change notification ui padding and colorize them with registered termeh iterable gaps and colors.
 
-| Var                 | Description                                                            | Default                  |
-| :------------------ | :--------------------------------------------------------------------- | :----------------------- |
-| `container-width`   | container width                                                        | `20rem`                  |
-| `container-padding` | container padding                                                      | `1rem`                   |
-| `container-z-index` | container z-index (by default `.layout` class of termeh has 0 z-index) | `2`                      |
-| `background`        | background                                                             | `get-color('container')` |
-| `border-width`      | left or right (based on direction) border width of notification        | `3px`                    |
-| `padding`           | padding                                                                | `1rem`                   |
-| `shadow`            | box-shadow                                                             | a simple shadow          |
-| `progress-size`     | progress bar size                                                      | `1px`                    |
+You can set following variable to customize notification styling.
 
-**Note:** by default you can use all defined iterable colors with `is-` prefix for coloring notification. e.g: `is-primary`, `is-success`
-
-you can override box-shadow of colored notification by defining `shadow-{iterable color}`. e.g:
-
-```scss
-@include set-var(
-  "v-notif",
-  "shadow-error",
-  rgba(palette("error", "900"), 0.05) 0px 0.25em 1em
-);
-@import "@bardoui/vnotif/dist/style.scss";
-```
+| Component    | Variable       | Description                                                   | Default       |
+| :----------- | :------------- | :------------------------------------------------------------ | :------------ |
+| notification | width          | default notification width                                    | `20rem`       |
+| notification | z-index        | default notification z-index                                  | `2`           |
+| notification | border         | default notification border                                   | `none`        |
+| notification | shadow         | default notification shadow                                   | a soft shadow |
+| notification | progress       | notification progress size                                    | `1px`         |
+| notification | gaps           | list of non-iterable gaps to include in notification gaps     | `()`          |
+| notification | colors         | list of non-iterable colors to include in notification colors | `()`          |
+| notification | {color}-border | colored notification border                                   | `null`        |
+| notification | {color}-shadow | colored notification shadow                                   | `null`        |

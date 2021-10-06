@@ -6,11 +6,11 @@
         @mouseleave="resume"
         ref="container"
     >
-        <div class="v-notification-content">
+        <div class="content">
             <h1 v-if="title">{{ title }}</h1>
             <p>{{ content }}</p>
         </div>
-        <div class="v-notification-progress" :style="{ width: `${progress}%` }"></div>
+        <div class="progress" :style="{ width: `${progress}%` }"></div>
     </div>
 </template>
 

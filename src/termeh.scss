@@ -5,15 +5,11 @@
     box-sizing: border-box;
     max-width: 100%;
     overflow: hidden;
-    width: get-var("v-notif", "container-width", 20rem);
-    padding: get-var("v-notif", "container-padding", 1rem);
-    z-index: get-var("v-notif", "container-z-index", 2);
+    padding: _gap("container");
+    width: _var("notification", "width", 20rem);
+    z-index: _var("notification", "z-index", 2);
     top: 0;
-    @if get-var("base", "direction") == "rtl" {
-        left: 0;
-    } @else {
-        right: 0;
-    }
+    #{if(_var("base", "direction") == "rtl", left, right)}: 0;
 
     &.is-left-top {
         top: 0;
@@ -21,12 +17,14 @@
         left: 0;
         right: unset;
     }
+
     &.is-right-top {
         top: 0;
         bottom: unset;
         left: unset;
         right: 0;
     }
+
     &.is-center-top {
         top: 0;
         bottom: unset;
@@ -34,18 +32,21 @@
         right: unset;
         transform: translateX(-50%);
     }
+
     &.is-left-bottom {
         top: unset;
         bottom: 0;
         left: 0;
         right: unset;
     }
+
     &.is-right-bottom {
         top: unset;
         bottom: 0;
         left: unset;
         right: 0;
     }
+
     &.is-center-bottom {
         top: unset;
         bottom: 0;
@@ -60,158 +61,194 @@
     }
 
     > .v-notification {
-        $bg: get-var("v-notif", "background", get-color("container"));
         display: block;
         align-self: stretch;
         justify-self: stretch;
         user-select: none;
         font: inherit;
-        background: $bg;
-        color: foreground($bg);
-        border: 0 solid palette("shade", "700");
-        @if get-var("base", "direction") == "ltr" {
-            border-left-width: get-var("v-notif", "border-width", 3px);
-        } @else {
-            border-right-width: get-var("v-notif", "border-width", 3px);
-        }
-        box-shadow: get-var(
-            "v-notif",
+        background: _color("container");
+        color: _color("foreground");
+        border: _var("notification", "border", none);
+        box-shadow: _var(
+            "notification",
             "shadow",
             (
-                rgba(palette("shade", "900"), 0.27) 0px 0px 0.25em,
-                rgba(palette("shade", "900"), 0.05) 0px 0.25em 1em
+                shadow(0, 3px, _color("shade"), false),
+                shadow(0, 6px, _color("shade"), true)
             )
         );
 
-        &.is-ltr {
-            border-width: 0;
-            border-left-width: get-var("v-notif", "border-width", 3px);
-        }
+        > .content {
+            padding: _gap("element");
 
-        &.is-rtl {
-            border-width: 0;
-            border-right-width: get-var("v-notif", "border-width", 3px);
-        }
+            > :not(:last-child) {
+                margin-bottom: _gap("element");
+            }
 
-        &:not(:last-child) {
-            margin-bottom: 1rem;
-        }
-
-        > .v-notification-content {
-            padding: get-var("v-notif", "padding", 1rem);
-
-            h1 {
+            h1,
+            h2,
+            h3,
+            h4,
+            h5,
+            h6,
+            > .header {
                 margin: 0;
-                font-size: 1rem;
-                margin-bottom: 1rem;
+                font-size: 1em;
                 font-weight: bold;
             }
 
-            p {
+            > p {
                 margin: 0;
                 padding: 0;
-                font-size: 1rem;
+                font-size: 1em;
             }
 
-            .v-notification-actions {
+            > .actions {
                 display: flex;
                 flex-direction: row;
                 justify-content: flex-end;
-                margin-top: get-gap("element");
-            }
 
-            .v-notification-action {
-                @include control();
-                width: auto;
-                border: none;
-                text-align: center;
-                border-radius: get-var("radius", "normal");
-                padding: (get-gap("element") / 2) get-gap("element");
-                transition: all get-var("transition", "duration");
-                text-decoration: none;
-                text-shadow: none;
-                cursor: pointer;
-                background: transparent;
-                font-weight: bold;
+                > .action {
+                    @include control();
+                    width: auto;
+                    border: none;
+                    text-align: center;
+                    text-decoration: none;
+                    text-shadow: none;
+                    border-radius: get-var("radius", "normal");
+                    padding: e-pad(_gap("element") / 2);
+                    transition: all get-var("transition", "duration")
+                        get-var("transition", "ease");
+                    cursor: pointer;
+                    background: transparent;
+                    font-weight: bold;
 
-                &:disabled,
-                &.is-disabled {
-                    color: palette("shade", "300");
-                }
-
-                &:not(.is-default):not(:disabled):not(.is-disabled) {
-                    color: palette("shade", "300");
-
-                    &:hover {
-                        color: readable(get-color("primary"), $bg);
+                    &:disabled,
+                    &.is-disabled {
+                        color: _color("mute");
                     }
-                }
 
-                &.is-default:not(:disabled):not(.is-disabled) {
-                    color: readable(get-color("primary"), $bg);
-                    &:hover {
-                        background: palette("primary", "100");
+                    &:not(.is-default):not(:disabled):not(.is-disabled) {
+                        color: _color("mute");
+
+                        &:hover {
+                            color: _color("foreground");
+                        }
+                    }
+
+                    &.is-default:not(:disabled):not(.is-disabled) {
+                        color: _color("foreground");
+                        &:hover {
+                            background: harmony(
+                                _color("container"),
+                                _palette("shade", "100"),
+                                _palette("shade", "800")
+                            );
+                        }
                     }
                 }
             }
         }
 
-        > .v-notification-progress {
+        > .progress {
             display: block;
-            height: get-var("v-notif", "progress-size", 1px);
-            background-color: palette("shade", "400");
+            height: _var("notification", "progress", 1px);
+            background-color: _color("shade");
             transition: all 100ms linear;
         }
 
+        &:not(:last-child) {
+            margin-bottom: _gap("element");
+        }
+
+        &.is-decorated {
+            @if _var("base", "direction") == "rtl" {
+                border-right: _var("decorator", "size")
+                    solid
+                    _color("foreground");
+            } @else {
+                border-left: _var("decorator", "size")
+                    solid
+                    _color("foreground");
+            }
+        }
+
         &.is-loading {
-            @include overlay($color: rgba($bg, 0.5));
-            @include loader(
-                $size: 1.5rem,
-                $color: readable(get-color("primary"), $bg)
+            @include overlay(_color("overlay"));
+            @include spinner(
+                $size: _var("spinner", "size", 2rem),
+                $color: foreground(_color("overlay")),
+                $width: _var("decorator", "size", 2px)
             );
         }
 
-        @each $name, $color in iterate-colors() {
-            &.is-#{$name} {
-                border-color: readable($color, $bg);
-                box-shadow: get-var(
-                    "v-notif",
-                    "shadow-" + #{$name},
-                    (
-                        rgba(palette($name, "900"), 0.27) 0px 0px 0.25em,
-                        rgba(palette($name, "900"), 0.05) 0px 0.25em 1em
-                    )
-                );
+        @each $label, $gap in _gaps(_var("notification", "gaps", ())) {
+            &.is-#{$label}-gaped {
+                > .content {
+                    padding: $gap;
 
-                > .v-notification-content {
-                    h1 {
-                        color: readable($color, $bg);
+                    > :not(:last-child) {
+                        margin-bottom: $gap;
+                    }
+                }
+            }
+        }
+
+        @each $name, $color in _colors(_var("notification", "colors", ())) {
+            &.is-#{$name} {
+                border: _var("notification", "#{$name}-border", null);
+                box-shadow: _var("notification", "#{$name}-shadow", null);
+
+                > .content {
+                    h1,
+                    h2,
+                    h3,
+                    h4,
+                    h5,
+                    h6,
+                    > .header {
+                        color: readable($color, _color("container"));
                     }
 
-                    .v-notification-action {
+                    > .actions > .action {
                         &:not(.is-default):not(:disabled):not(.is-disabled) {
+                            color: _color("mute");
+
                             &:hover {
-                                color: readable($color, $bg);
+                                color: readable($color, _color("container"));
                             }
                         }
 
                         &.is-default:not(:disabled):not(.is-disabled) {
-                            color: readable($color, $bg);
+                            color: readable($color, _color("container"));
                             &:hover {
-                                background: palette($name, "100");
+                                background: harmony(
+                                    _color("container"),
+                                    palette($color, "50"),
+                                    palette($color, "800")
+                                );
                             }
                         }
                     }
                 }
 
-                .v-notification-progress {
-                    background-color: readable($color, $bg);
+                > .progress {
+                    background-color: $color;
+                }
+
+                &.is-decorated {
+                    @if _var("base", "direction") == "rtl" {
+                        border-right: _var("decorator", "size") solid $color;
+                    } @else {
+                        border-left: _var("decorator", "size") solid $color;
+                    }
                 }
 
                 &.is-loading {
-                    @include loader(
-                        $size: 1.5rem,
-                        $color: readable($color, $bg)
+                    @include spinner(
+                        $size: _var("spinner", "size", 2rem),
+                        $color: $color,
+                        $width: _var("decorator", "size", 2px)
                     );
                 }
             }

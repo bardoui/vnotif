@@ -1,13 +1,27 @@
 <template>
     <div class="layout is-simple is-centered">
-        <div>
-            <h1>Notification Test</h1>
-            <button @click="createSimpleNotif">
-                Create a simple notification
-            </button>
-            <button class="is-primary" @click="createCustomNotification">
-                Create custom notification
-            </button>
+        <div class="content">
+            <div class="wrapper">
+                <div class="card is-decorated is-primary">
+                    <h1 class="is-primary-colored is-normal-sized">
+                        Notification Test
+                    </h1>
+                    <div class="gaper is-mini-gaped">
+                        <button @click="createSimpleNotif">
+                            Simple Notification
+                        </button>
+                        <button @click="createSuccessNotif">
+                            Success notification
+                        </button>
+                        <button
+                            class="is-primary"
+                            @click="createCustomNotification"
+                        >
+                            Custom notification
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <notification />
@@ -24,9 +38,14 @@ export default defineComponent({
     setup() {
         function createSimpleNotif() {
             createDefaultSimpleNotification({
+                content: "This is a simple notfication",
+            });
+        }
+        function createSuccessNotif() {
+            createDefaultSimpleNotification({
                 title: "Test",
                 content: "This is a simple notfication",
-                class: "is-success"
+                class: "is-decorated is-success"
             });
         }
         function createCustomNotification() {
@@ -57,23 +76,31 @@ export default defineComponent({
                 }
             );
         }
-        return { createSimpleNotif, createCustomNotification };
+        return {
+            createSimpleNotif,
+            createSuccessNotif,
+            createCustomNotification
+        };
     }
 });
 </script>
 
 <style lang="scss">
 @import "@bardoui/termeh/scss/core.scss";
-@include set-var("font", "family", "calibri");
-@include set-var("font", "size", 12px);
+@include _var("font", "family", "calibri");
+@include _var("font", "size", 12px);
 @import "@bardoui/termeh/scss/reset.scss";
 @import "@bardoui/termeh/scss/component/layout.scss";
 @import "@bardoui/termeh/scss/component/button.scss";
-@import "../src/termeh.scss";
+@import "@bardoui/termeh/scss/component/gaper.scss";
+@import "@bardoui/termeh/scss/component/card.scss";
+// @import "@/termeh.scss";
+@import "../dist/style.css";
 #app {
     display: block;
     width: 100%;
     height: 100%;
     overflow: hidder;
+    background: _palette("shade", "50");
 }
 </style>

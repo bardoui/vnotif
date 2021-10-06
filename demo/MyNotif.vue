@@ -1,21 +1,19 @@
 <template>
     <div
-        class="v-notification"
+        class="v-notification is-decorated"
         @mouseenter="pause"
         @mouseleave="resume"
         ref="container"
         :class="{ 'is-loading': loading }"
     >
-        <div class="v-notification-content">
+        <div class="content">
             <p>{{ message }}</p>
-            <div class="v-notification-actions">
-                <span
-                    class="v-notification-action"
-                    @click.stop="action('no', 'data')"
-                    >{{ noText || "no" }}</span
-                >
+            <div class="actions">
+                <span class="action" @click.stop="action('no', 'data')">{{
+                    noText || "no"
+                }}</span>
                 <button
-                    class="v-notification-action is-default"
+                    class="action is-default"
                     :class="{ 'is-disabled': loading }"
                     @click.stop="action('yes')"
                 >
@@ -23,10 +21,7 @@
                 </button>
             </div>
         </div>
-        <div
-            class="v-notification-progress"
-            :style="{ width: `${progress}%` }"
-        ></div>
+        <div class="progress" :style="{ width: `${progress}%` }"></div>
     </div>
 </template>
 

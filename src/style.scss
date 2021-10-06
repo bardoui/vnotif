@@ -6,11 +6,11 @@
     box-sizing: border-box;
     max-width: 100%;
     overflow: hidden;
-    width: 20rem;
-    padding: 1rem;
+    padding: _gap("container");
+    width: 0rem;
     z-index: 2;
     top: 0;
-    right: 0;
+    #{if(_var("base", "direction") == "rtl", left, right)}: 0;
 
     &.is-left-top {
         top: 0;
@@ -18,12 +18,14 @@
         left: 0;
         right: unset;
     }
+
     &.is-right-top {
         top: 0;
         bottom: unset;
         left: unset;
         right: 0;
     }
+
     &.is-center-top {
         top: 0;
         bottom: unset;
@@ -31,18 +33,21 @@
         right: unset;
         transform: translateX(-50%);
     }
+
     &.is-left-bottom {
         top: unset;
         bottom: 0;
         left: 0;
         right: unset;
     }
+
     &.is-right-bottom {
         top: unset;
         bottom: 0;
         left: unset;
         right: 0;
     }
+
     &.is-center-bottom {
         top: unset;
         bottom: 0;
@@ -62,85 +67,112 @@
         justify-self: stretch;
         user-select: none;
         font: inherit;
-        background: white;
-        box-shadow: rgba(52, 58, 64, 0.27) 0px 0px 0.25em,
-            rgba(52, 58, 64, 0.05) 0px 0.25em 1em;
+        background: _color("container");
+        color: _color("foreground");
+        box-shadow: shadow(0, 3px, _color("shade"), false),
+            shadow(0, 6px, _color("shade"), true);
 
-        &:not(:last-child) {
-            margin-bottom: 1rem;
-        }
+        > .content {
+            padding: _gap("element");
 
-        > .v-notification-content {
-            padding: 1rem;
+            > :not(:last-child) {
+                margin-bottom: _gap("element");
+            }
 
-            h1 {
+            h1,
+            h2,
+            h3,
+            h4,
+            h5,
+            h6,
+            > .header {
                 margin: 0;
-                font-size: 1rem;
-                margin-bottom: 1rem;
+                font-size: 1em;
                 font-weight: bold;
             }
 
-            p {
+            > p {
                 margin: 0;
                 padding: 0;
-                font-size: 1rem;
+                font-size: 1em;
             }
 
-            .v-notification-actions {
+            > .actions {
                 display: flex;
                 flex-direction: row;
                 justify-content: flex-end;
-                margin-top: get-gap("element");
-            }
 
-            .v-notification-action {
-                @include control();
-                width: auto;
-                border: none;
-                text-align: center;
-                border-radius: get-var("radius", "normal");
-                padding: (get-gap("element") / 2) get-gap("element");
-                transition: all get-var("transition", "duration");
-                text-decoration: none;
-                text-shadow: none;
-                cursor: pointer;
-                background: transparent;
-                font-weight: bold;
+                > .action {
+                    @include control();
+                    width: auto;
+                    border: none;
+                    text-align: center;
+                    text-decoration: none;
+                    text-shadow: none;
+                    border-radius: get-var("radius", "normal");
+                    padding: e-pad(_gap("element") / 2);
+                    transition: all get-var("transition", "duration")
+                        get-var("transition", "ease");
+                    cursor: pointer;
+                    background: transparent;
+                    font-weight: bold;
 
-                &:disabled,
-                &.is-disabled {
-                    color: palette("shade", "300");
-                }
-
-                &:not(.is-default):not(:disabled):not(.is-disabled) {
-                    color: palette("shade", "300");
-
-                    &:hover {
-                        color: readable(get-color("primary"), white);
+                    &:disabled,
+                    &.is-disabled {
+                        color: _color("mute");
                     }
-                }
 
-                &.is-default:not(:disabled):not(.is-disabled) {
-                    color: readable(get-color("primary"), white);
-                    &:hover {
-                        background: palette("primary", "100");
+                    &:not(.is-default):not(:disabled):not(.is-disabled) {
+                        color: _color("mute");
+
+                        &:hover {
+                            color: _color("foreground");
+                        }
+                    }
+
+                    &.is-default:not(:disabled):not(.is-disabled) {
+                        color: _color("foreground");
+                        &:hover {
+                            background: harmony(
+                                _color("container"),
+                                _palette("shade", "100"),
+                                _palette("shade", "800")
+                            );
+                        }
                     }
                 }
             }
         }
 
-        > .v-notification-progress {
+        > .progress {
             display: block;
             height: 1px;
-            background-color: #495057;
+            background-color: _color("shade");
             transition: all 100ms linear;
         }
 
+        &:not(:last-child) {
+            margin-bottom: _gap("element");
+        }
+
+        &.is-decorated {
+            @if _var("base", "direction") == "rtl" {
+                border-right: _var("decorator", "size")
+                    solid
+                    _color("foreground");
+            } @else {
+                border-left: _var("decorator", "size")
+                    solid
+                    _color("foreground");
+            }
+        }
+
         &.is-loading {
-            @include overlay($color: rgba(white, 0.5));
-            @include loader(
-                $size: 1.5rem,
-                $color: readable(get-color("primary"), white)
+            @include overlay(_color("overlay"));
+            @include spinner(
+                $size: _var("spinner", "size", 2rem),
+                $color: foreground(_color("overlay")),
+                $width: _var("decorator", "size", 2px)
             );
         }
     }
