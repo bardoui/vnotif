@@ -275,6 +275,13 @@ for using default styles you must import `style.css` in your app.
 
 Default style structure:
 
+- **is-left-top** _(class)_: position container to left top.
+- **is-right-top** _(class)_: position container to right top.
+- **is-center-top** _(class)_: position container to center top.
+- **is-left-bottom** _(class)_: position container to left bottom.
+- **is-right-bottom** _(class)_: position container to right bottom.
+- **is-center-bottom** _(class)_: position container to center bottom.
+- **is-sub** _(class)_: add this class to main container if use container inside part of ui.
 - **v-notification** _(class)_: styling notification component.
   - **content** _(class)_: style notification content container.
     - **header** _(class)_: style notification header.
