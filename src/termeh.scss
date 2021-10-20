@@ -161,16 +161,11 @@
             margin-bottom: _gap("element");
         }
 
-        &.is-decorated {
-            @if _var("base", "direction") == "rtl" {
-                border-right: _var("decorator", "size")
-                    solid
-                    _color("foreground");
-            } @else {
-                border-left: _var("decorator", "size")
-                    solid
-                    _color("foreground");
-            }
+        &.is-right-decorated {
+            border-right: _var("decorator", "size") solid _color("foreground");
+        }
+        &.is-left-decorated {
+            border-left: _var("decorator", "size") solid _color("foreground");
         }
 
         &.is-loading {
@@ -236,12 +231,11 @@
                     background-color: $color;
                 }
 
-                &.is-decorated {
-                    @if _var("base", "direction") == "rtl" {
-                        border-right: _var("decorator", "size") solid $color;
-                    } @else {
-                        border-left: _var("decorator", "size") solid $color;
-                    }
+                &.is-right-decorated {
+                    border-right-color: $color;
+                }
+                &.is-left-decorated {
+                    border-left-color: $color;
                 }
 
                 &.is-loading {

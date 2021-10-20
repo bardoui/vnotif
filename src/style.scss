@@ -155,16 +155,11 @@
             margin-bottom: _gap("element");
         }
 
-        &.is-decorated {
-            @if _var("base", "direction") == "rtl" {
-                border-right: _var("decorator", "size")
-                    solid
-                    _color("foreground");
-            } @else {
-                border-left: _var("decorator", "size")
-                    solid
-                    _color("foreground");
-            }
+        &.is-left-decorated {
+            border-left: _var("decorator", "size") solid _color("foreground");
+        }
+        &.is-right-decorated {
+            border-right: _var("decorator", "size") solid _color("foreground");
         }
 
         &.is-loading {

@@ -315,7 +315,8 @@ Notification by default can contains following parts:
 
 You could style your custom component by `v-notification` class.
 
-- **is-decorated**: add decorated border to notification.
+- **is-left-decorated**: add left decorated border to notification.
+- **is-right-decorated**: add right decorated border to notification.
 - **is-loading**: add loading ui to notification.
 - **is-{gap}-gaped**: set notification gap (padding and spacing) to registered iterable gaps (Termeh only).
 - **is-{color}**: set notification color scheme to registered iterable colors (Termeh only).
