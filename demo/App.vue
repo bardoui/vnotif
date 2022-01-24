@@ -1,12 +1,12 @@
 <template>
-    <div class="layout is-simple is-centered">
-        <div class="content">
+    <div class="layout">
+        <div class="content is-centered">
             <div class="wrapper">
-                <div class="card is-decorated is-primary">
+                <div class="card is-bottom-decorated is-primary">
                     <h1 class="is-primary-colored is-normal-sized">
                         Notification Test
                     </h1>
-                    <div class="gaper is-mini-gaped">
+                    <div class="gaper is-auto is-mini-gaped">
                         <button @click="createSimpleNotif">
                             Simple Notification
                         </button>
@@ -38,14 +38,14 @@ export default defineComponent({
     setup() {
         function createSimpleNotif() {
             createDefaultSimpleNotification({
-                content: "This is a simple notfication",
+                content: "This is a simple notfication"
             });
         }
         function createSuccessNotif() {
             createDefaultSimpleNotification({
                 title: "Test",
                 content: "This is a simple notfication",
-                class: "is-decorated is-success"
+                class: "is-left-decorated is-success"
             });
         }
         function createCustomNotification() {
@@ -86,21 +86,20 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import "@bardoui/termeh/scss/core.scss";
-@include _var("font", "family", "calibri");
-@include _var("font", "size", 12px);
-@import "@bardoui/termeh/scss/reset.scss";
-@import "@bardoui/termeh/scss/component/layout.scss";
-@import "@bardoui/termeh/scss/component/button.scss";
-@import "@bardoui/termeh/scss/component/gaper.scss";
-@import "@bardoui/termeh/scss/component/card.scss";
-// @import "@/termeh.scss";
-@import "../dist/style.css";
+@use "@bardoui/termeh/termeh.scss" as T;
+@use "var";
+@use "@bardoui/termeh/styles.scss";
+@use "@bardoui/termeh/layout/layout.scss";
+@use "@bardoui/termeh/layout/content.scss";
+@use "@bardoui/termeh/layout/gaper.scss";
+@use "@bardoui/termeh/components/button.scss";
+@use "@bardoui/termeh/components/card.scss";
+@use "@/termeh.scss";
 #app {
     display: block;
     width: 100%;
     height: 100%;
-    overflow: hidder;
-    background: _palette("shade", "50");
+    overflow: hidden;
+    background: T.color("alternative");
 }
 </style>

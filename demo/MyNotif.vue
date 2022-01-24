@@ -1,6 +1,6 @@
 <template>
     <div
-        class="v-notification is-decorated"
+        class="v-notification is-left-decorated"
         @mouseenter="pause"
         @mouseleave="resume"
         ref="container"
@@ -8,12 +8,13 @@
     >
         <div class="content">
             <p>{{ message }}</p>
-            <div class="actions">
-                <span class="action" @click.stop="action('no', 'data')">{{
-                    noText || "no"
-                }}</span>
+            <div class="gaper is-auto">
+                <div class="filler"></div>
+                <button class="is-simple" @click.stop="action('no', 'data')">
+                    {{ noText || "no" }}
+                </button>
                 <button
-                    class="action is-default"
+                    class="is-error"
                     :class="{ 'is-disabled': loading }"
                     @click.stop="action('yes')"
                 >

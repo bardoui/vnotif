@@ -1,4 +1,10 @@
-@import "@bardoui/termeh/scss/core.scss";
+@use "@bardoui/termeh/termeh.scss" as T;
+
+$overlay: T.var("overlay", "background");
+$filter: T.var("overlay", "filter");
+$spinner: T.var("spinner", "size", 2em);
+$decorator: T.var("decorator", "size", 2px);
+
 .v-notification-container {
     display: flex;
     position: fixed;
@@ -6,11 +12,16 @@
     box-sizing: border-box;
     max-width: 100%;
     overflow: hidden;
-    padding: _gap("container");
     width: 0rem;
     z-index: 2;
     top: 0;
-    #{if(_var("base", "direction") == "rtl", left, right)}: 0;
+    padding: T.gap("container");
+    @include T.ltr() {
+        right: 0;
+    }
+    @include T.rtl() {
+        left: 0;
+    }
 
     &.is-left-top {
         top: 0;
@@ -67,16 +78,16 @@
         justify-self: stretch;
         user-select: none;
         font: inherit;
-        background: _color("container");
-        color: _color("foreground");
-        box-shadow: shadow(0, 3px, _color("shade"), false),
-            shadow(0, 6px, _color("shade"), true);
+        background: T.color("box");
+        color: T.color("foreground");
+        box-shadow: T.shadow(0, 3px, T.color("shade"), false),
+            T.shadow(0, 6px, T.color("shade"), true);
 
         > .content {
-            padding: _gap("element");
+            padding: T.gap("element");
 
-            > :not(:last-child) {
-                margin-bottom: _gap("element");
+            > :not(:last-child):not(.is-marginless) {
+                margin-bottom: T.gap("element");
             }
 
             h1,
@@ -96,79 +107,30 @@
                 padding: 0;
                 font-size: 1em;
             }
-
-            > .actions {
-                display: flex;
-                flex-direction: row;
-                justify-content: flex-end;
-
-                > .action {
-                    @include control();
-                    width: auto;
-                    border: none;
-                    text-align: center;
-                    text-decoration: none;
-                    text-shadow: none;
-                    border-radius: get-var("radius", "normal");
-                    padding: e-pad(_gap("element") / 2);
-                    transition: all get-var("transition", "duration")
-                        get-var("transition", "ease");
-                    cursor: pointer;
-                    background: transparent;
-                    font-weight: bold;
-
-                    &:disabled,
-                    &.is-disabled {
-                        color: _color("mute");
-                    }
-
-                    &:not(.is-default):not(:disabled):not(.is-disabled) {
-                        color: _color("mute");
-
-                        &:hover {
-                            color: _color("foreground");
-                        }
-                    }
-
-                    &.is-default:not(:disabled):not(.is-disabled) {
-                        color: _color("foreground");
-                        &:hover {
-                            background: harmony(
-                                _color("container"),
-                                _palette("shade", "100"),
-                                _palette("shade", "800")
-                            );
-                        }
-                    }
-                }
-            }
         }
 
         > .progress {
             display: block;
             height: 1px;
-            background-color: _color("shade");
+            background-color: T.color("shade");
             transition: all 100ms linear;
         }
 
         &:not(:last-child) {
-            margin-bottom: _gap("element");
+            margin-bottom: T.gap("element");
         }
 
         &.is-left-decorated {
-            border-left: _var("decorator", "size") solid _color("foreground");
+            border-left: $decorator solid T.color("shade");
         }
+        
         &.is-right-decorated {
-            border-right: _var("decorator", "size") solid _color("foreground");
+            border-right: $decorator solid T.color("shade");
         }
 
         &.is-loading {
-            @include overlay(_color("overlay"));
-            @include spinner(
-                $size: _var("spinner", "size", 2rem),
-                $color: foreground(_color("overlay")),
-                $width: _var("decorator", "size", 2px)
-            );
+            @include T.overlay($overlay, $filter);
+            @include T.loader($spinner, T.color("shade"), $decorator);
         }
     }
 }
