@@ -162,12 +162,13 @@ To create custom notification you need define a normal vue component with notifi
         Loading...
       </div>
       <p>{{ progress }} <strong>%</strong></p>
-      <div class="actions">
-        <span class="action" @click.stop="action('no', 'data')">{{
-          noText || "no"
-        }}</span>
+      <div class="gaper is-auto">
+        <div class="filler"></div>
+        <button class="is-simple" @click.stop="action('no', 'data')">
+          {{ noText || "no" }}
+        </button>
         <button
-          class="action is-default"
+          class="is-primary"
           :class="{ 'is-disabled': loading }"
           @click.stop="action('yes')"
         >
@@ -292,7 +293,7 @@ for using default styles you can use one of static (CSS) or termeh (SCSS) predef
 
 Notification by default can contains following parts:
 
-- **content**: contains notification content (headers, actions, etc).
+- **content**: contains notification content (headers, text, etc).
 - **progress**: progress element.
 
 **Note**: this elements must placed directly as child.
@@ -302,9 +303,10 @@ Notification by default can contains following parts:
   <div class="content">
     <h1>{{ header }}</h1>
     <p>{{ content }}</p>
-    <div class="actions">
-      <button class="action">Cancel</button>
-      <button class="action is-default">Approve</button>
+    <div class="gaper is-auto">
+      <div class="filler"></div>
+      <button class="is-simple">Cancel</button>
+      <button class="is-primary">Approve</button>
     </div>
   </div>
   <div class="progress"></div>
@@ -326,15 +328,6 @@ You could style your custom component by `v-notification` class.
 Notification content by default can contains following parts:
 
 - **<h1> ... <h6>** or **header**: notification header.
-- **actions**: container for notification actions.
-
-#### Action Classes
-
-to use pre-defined actions in your custom component you should define container with `actions` class and action buttons with `action` class inside your actions container.
-
-- **action**: create a action button.
-- **is-default**: default action button.
-- **is-disabled**: disabled action button.
 
 #### Customize Styling
 

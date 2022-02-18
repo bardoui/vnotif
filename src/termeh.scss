@@ -1,11 +1,11 @@
 @use "@bardoui/termeh/termeh.scss" as T;
 
-$gaps: T.var("notification", "gaps", ());
-$colors: T.var("notification", "colors", ());
-$overlay: T.var("overlay", "background");
-$filter: T.var("overlay", "filter");
-$spinner: T.var("spinner", "size", 2em);
-$decorator: T.var("decorator", "size", 2px);
+$-gaps: T.var("notification", "gaps", ());
+$-colors: T.var("notification", "colors", ());
+$-overlay: T.var("overlay", "background");
+$-filter: T.var("overlay", "filter");
+$-spinner: T.var("spinner", "size", 2em);
+$-decorator: T.var("decorator", "size", 2px);
 
 .v-notification-container {
     display: flex;
@@ -130,19 +130,19 @@ $decorator: T.var("decorator", "size", 2px);
         }
 
         &.is-left-decorated {
-            border-left: $decorator solid T.color("shade");
+            border-left: $-decorator solid T.color("shade");
         }
 
         &.is-right-decorated {
-            border-right: $decorator solid T.color("shade");
+            border-right: $-decorator solid T.color("shade");
         }
 
         &.is-loading {
-            @include T.overlay($overlay, $filter);
-            @include T.loader($spinner, T.color("shade"), $decorator);
+            @include T.overlay($-overlay, $-filter);
+            @include T.loader($-spinner, T.color("shade"), $-decorator);
         }
 
-        @each $name, $gap in T.gaps($gaps) {
+        @each $name, $gap in T.gaps($-gaps) {
             &.is-#{$name}-gaped {
                 > .content {
                     padding: $gap;
@@ -154,7 +154,7 @@ $decorator: T.var("decorator", "size", 2px);
             }
         }
 
-        @each $name, $color in T.colors($colors) {
+        @each $name, $color in T.colors($-colors) {
             &.is-#{$name} {
                 border: T.var("notification", "#{$name}-border");
                 box-shadow: T.var("notification", "#{$name}-shadow");
