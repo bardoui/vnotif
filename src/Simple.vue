@@ -8,7 +8,7 @@
     >
         <div class="content">
             <h1 v-if="title">{{ title }}</h1>
-            <p>{{ content }}</p>
+            <p v-html="content"></p>
         </div>
         <div class="progress" :style="{ width: `${progress}%` }"></div>
     </div>

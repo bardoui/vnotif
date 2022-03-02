@@ -44,7 +44,7 @@ export default defineComponent({
         function createSuccessNotif() {
             createDefaultSimpleNotification({
                 title: "Test",
-                content: "This is a simple notfication",
+                content: "This is a <strong>simple</strong> notfication",
                 class: "is-left-decorated is-success"
             });
         }

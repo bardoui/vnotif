@@ -89,6 +89,8 @@ To showing notification in your app you need to add notification container compo
 
 **Note:** simple notifications has no actions. if you want notification with actions support you must use custom notification.
 
+**Note:** simple notifications accept html string as content.
+
 **Note:** title is optional and you can create notification without title.
 
 ```ts
