@@ -22,7 +22,7 @@ const globalOptions: NotificationOptions = {
  * set global notification options
  * @param option new options
  */
-export function setGlobalOptions(option: NotificationOptions) {
+export function setGlobalOptions(option: NotificationOptions): void {
     const res = mergeOptions(globalOptions, option);
     globalOptions.pauseDelay = res.pauseDelay;
     globalOptions.duration = res.duration;
@@ -52,7 +52,7 @@ const containerOptions: ContainerOptions = {};
 export function setContainerOptions(
     container: string,
     option: NotificationOptions | null | undefined
-) {
+): void {
     containerOptions[container] = option || {};
 }
 

@@ -7,14 +7,18 @@
         :class="{ 'is-loading': loading }"
     >
         <div class="content">
+            <h4>{{ title }}</h4>
             <p>{{ message }}</p>
             <div class="gaper is-auto">
                 <div class="filler"></div>
-                <button class="is-simple" @click.stop="action('no', 'data')">
+                <button
+                    class="button is-simple"
+                    @click.stop="action('no', 'data')"
+                >
                     {{ noText || "no" }}
                 </button>
                 <button
-                    class="is-error"
+                    class="button is-error"
                     :class="{ 'is-disabled': loading }"
                     @click.stop="action('yes')"
                 >
@@ -41,6 +45,7 @@ export default defineComponent({
             required: true
         },
         // custom props
+        title: String,
         message: String,
         yesText: String,
         noText: String

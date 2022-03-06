@@ -3,7 +3,7 @@
  * @param container container name
  * @param notification notification id
  */
-export function generateId(container: string, notification: string) {
+export function generateId(container: string, notification: string): string {
     return `${container}:::${notification}`;
 }
 
@@ -11,7 +11,7 @@ export function generateId(container: string, notification: string) {
  * get container name from global id
  * @param id global id
  */
-export function getContainer(id: string) {
+export function getContainer(id: string): string {
     return id.split(":::")[0];
 }
 
@@ -19,7 +19,7 @@ export function getContainer(id: string) {
  * get notification id from global id
  * @param id global id
  */
-export function getNotificationId(id: string) {
+export function getNotificationId(id: string): string {
     return id.split(":::")[1];
 }
 
@@ -28,7 +28,7 @@ export function getNotificationId(id: string) {
  * @param id global id
  * @param container container name
  */
-export function detectContainer(id: string, container: string) {
+export function detectContainer(id: string, container: string): boolean {
     return id.startsWith(`${container}:::`);
 }
 
@@ -37,6 +37,6 @@ export function detectContainer(id: string, container: string) {
  * @param id global id
  * @param notification notification id
  */
-export function detectNotification(id: string, notification: string) {
+export function detectNotification(id: string, notification: string): boolean {
     return id.endsWith(`:::${notification}`);
 }

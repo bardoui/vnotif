@@ -1,10 +1,5 @@
 @use "@bardoui/termeh/termeh.scss" as T;
 
-$overlay: T.var("overlay", "background");
-$filter: T.var("overlay", "filter");
-$spinner: T.var("spinner", "size", 2em);
-$decorator: T.var("decorator", "size", 2px);
-
 .v-notification-container {
     display: flex;
     position: fixed;
@@ -15,7 +10,7 @@ $decorator: T.var("decorator", "size", 2px);
     width: 0rem;
     z-index: 2;
     top: 0;
-    padding: T.gap("container");
+    padding: T.gap("macro");
     @include T.ltr() {
         right: 0;
     }
@@ -78,16 +73,16 @@ $decorator: T.var("decorator", "size", 2px);
         justify-self: stretch;
         user-select: none;
         font: inherit;
-        background: T.color("box");
-        color: T.color("foreground");
+        color: T.variant("base", "color");
+        background: T.variant("base", "box");
         box-shadow: T.shadow(0, 3px, T.color("shade"), false),
             T.shadow(0, 6px, T.color("shade"), true);
 
         > .content {
-            padding: T.gap("element");
+            padding: T.gap("macro");
 
             > :not(:last-child):not(.is-marginless) {
-                margin-bottom: T.gap("element");
+                margin-bottom: T.gap("micro");
             }
 
             h1,
@@ -98,6 +93,7 @@ $decorator: T.var("decorator", "size", 2px);
             h6,
             > .header {
                 margin: 0;
+                padding: 0;
                 font-size: 1em;
                 font-weight: bold;
             }
@@ -117,20 +113,27 @@ $decorator: T.var("decorator", "size", 2px);
         }
 
         &:not(:last-child) {
-            margin-bottom: T.gap("element");
+            margin-bottom: T.gap("macro");
         }
 
         &.is-left-decorated {
-            border-left: $decorator solid T.color("shade");
+            border-left: T.var("decorator", "size") solid T.color("shade");
         }
-        
+
         &.is-right-decorated {
-            border-right: $decorator solid T.color("shade");
+            border-right: T.var("decorator", "size") solid T.color("shade");
         }
 
         &.is-loading {
-            @include T.overlay($overlay, $filter);
-            @include T.loader($spinner, T.color("shade"), $decorator);
+            @include T.overlay(
+                T.var("overlay", "background"),
+                T.var("overlay", "filter")
+            );
+            @include T.loader(
+                T.var("spinner", "size"),
+                T.color("shade"),
+                T.var("decorator", "size")
+            );
         }
     }
 }

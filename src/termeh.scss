@@ -1,11 +1,5 @@
+@use "sass:math";
 @use "@bardoui/termeh/termeh.scss" as T;
-
-$-gaps: T.var("notification", "gaps", ());
-$-colors: T.var("notification", "colors", ());
-$-overlay: T.var("overlay", "background");
-$-filter: T.var("overlay", "filter");
-$-spinner: T.var("spinner", "size", 2em);
-$-decorator: T.var("decorator", "size", 2px);
 
 .v-notification-container {
     display: flex;
@@ -15,7 +9,7 @@ $-decorator: T.var("decorator", "size", 2px);
     max-width: 100%;
     overflow: hidden;
     top: 0;
-    padding: T.gap("container");
+    padding: T.gap("macro");
     width: T.var("notification", "width", 20rem);
     z-index: T.var("notification", "z-index", 2);
     @include T.ltr() {
@@ -80,8 +74,8 @@ $-decorator: T.var("decorator", "size", 2px);
         justify-self: stretch;
         user-select: none;
         font: inherit;
-        background: T.color("box");
-        color: T.color("foreground");
+        color: T.variant("base", "color");
+        background: T.variant("base", "box");
         border: T.var("notification", "border", none);
         box-shadow: T.var(
             "notification",
@@ -93,10 +87,10 @@ $-decorator: T.var("decorator", "size", 2px);
         );
 
         > .content {
-            padding: T.gap("element");
+            padding: T.gap("macro");
 
             > :not(:last-child):not(.is-marginless) {
-                margin-bottom: T.gap("element");
+                margin-bottom: T.gap("micro");
             }
 
             h1,
@@ -107,6 +101,7 @@ $-decorator: T.var("decorator", "size", 2px);
             h6,
             > .header {
                 margin: 0;
+                padding: 0;
                 font-size: 1em;
                 font-weight: bold;
             }
@@ -126,35 +121,42 @@ $-decorator: T.var("decorator", "size", 2px);
         }
 
         &:not(:last-child) {
-            margin-bottom: T.gap("element");
+            margin-bottom: T.gap("macro");
         }
 
         &.is-left-decorated {
-            border-left: $-decorator solid T.color("shade");
+            border-left: T.var("decorator", "size") solid T.color("shade");
         }
 
         &.is-right-decorated {
-            border-right: $-decorator solid T.color("shade");
+            border-right: T.var("decorator", "size") solid T.color("shade");
         }
 
         &.is-loading {
-            @include T.overlay($-overlay, $-filter);
-            @include T.loader($-spinner, T.color("shade"), $-decorator);
+            @include T.overlay(
+                T.var("overlay", "background"),
+                T.var("overlay", "filter")
+            );
+            @include T.loader(
+                T.var("spinner", "size"),
+                T.color("shade"),
+                T.var("decorator", "size")
+            );
         }
 
-        @each $name, $gap in T.gaps($-gaps) {
+        @each $name, $gap in T.gaps(T.var("notification", "gaps", ())) {
             &.is-#{$name}-gaped {
                 > .content {
                     padding: $gap;
 
                     > :not(:last-child):not(.is-marginless) {
-                        margin-bottom: $gap;
+                        margin-bottom: math.div($gap, 2);
                     }
                 }
             }
         }
 
-        @each $name, $color in T.colors($-colors) {
+        @each $name, $color in T.colors(T.var("notification", "colors", ())) {
             &.is-#{$name} {
                 border: T.var("notification", "#{$name}-border");
                 box-shadow: T.var("notification", "#{$name}-shadow");
@@ -167,7 +169,7 @@ $-decorator: T.var("decorator", "size", 2px);
                     h5,
                     h6,
                     > .header {
-                        color: T.readable(T.color("box"), $color, true);
+                        color: T.variant($name, "readable");
                     }
                 }
 
